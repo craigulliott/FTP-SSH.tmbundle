@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>saveActiveFile</string>
+	<key>command</key>
+	<string>#!/usr/bin/env php 
+&lt;?php
+// Initialize variables and load helper functions
+$require = array_key_exists('TM_BUNDLE_SUPPORT', $_SERVER) ? $_SERVER['TM_BUNDLE_SUPPORT'] : $_ENV['TM_BUNDLE_SUPPORT']; 
+require($require.'/lib/helper_functions.php');
+
+// Show settings dialog
+settings_dialog($PREFS_FILE, $PREFS);
+
+</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>name</key>
+	<string>Remote Connection Settings...</string>
+	<key>output</key>
+	<string>showAsTooltip</string>
+	<key>uuid</key>
+	<string>F9C0BAA9-A6CD-451D-84C8-F27C756232BF</string>
+</dict>
+</plist>

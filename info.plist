@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>mainMenu</key>
+	<dict>
+		<key>items</key>
+		<array>
+			<string>CBC00CD8-50DC-480A-964E-9A790AAF048C</string>
+			<string>D4B46CD2-1D1F-4BE7-9799-84CB77D93DE1</string>
+			<string>------------------------------------</string>
+			<string>F9C0BAA9-A6CD-451D-84C8-F27C756232BF</string>
+			<string>34C28539-FD19-412C-8510-A221A11EF164</string>
+		</array>
+		<key>submenus</key>
+		<dict/>
+	</dict>
+	<key>name</key>
+	<string>FTP/SSH</string>
+	<key>ordering</key>
+	<array>
+		<string>CBC00CD8-50DC-480A-964E-9A790AAF048C</string>
+		<string>D4B46CD2-1D1F-4BE7-9799-84CB77D93DE1</string>
+		<string>F9C0BAA9-A6CD-451D-84C8-F27C756232BF</string>
+		<string>34C28539-FD19-412C-8510-A221A11EF164</string>
+	</array>
+	<key>uuid</key>
+	<string>1060B7A3-7D3A-4998-A460-FF11AF1AE1E3</string>
+</dict>
+</plist>

@@ -1,0 +1,85 @@
+<p>Since you are reading this you probably know there is no build-in FTP/SSH support in TextMate. 
+This bundle tries to work around this a little bit. </p>
+<p>Using the FTP/SSH bundle you may be able to download (reload) and upload files to a remote host using FTP or SSH. You always work on a local copy of the remote files. Remote files must be downloaded first by another method and manually added to your TextMate Project file. You may use the FTP/SSH bundle for TextMate Projects or just single files. </p>
+<!--break-->
+
+<div class="messages">
+	<p><strong>Warning</strong></p>
+	<p>This Bundle manipulates and overwrites local and remote files without prompting. Although I took care when creating this bundle I don't give a guarantee for its proper function. Use it on your own risk.</p>
+</div>
+
+<h2 id="remoteconnectionsettings">Remote Connection settings</h2>
+
+<p>The FTP/SSH bundle get its remote connection settings from a file called <em>.ftpssh_settings</em>. This file must be located in the same directory where your TextMate Project file is saved. If you don't use a TextMate Project but single files you must place the <em>.ftpssh_settings</em> file at the same directory level where your single files are saved. </p>
+
+<p>Use the FTP/SSH command <em>Remote Connection Settings&#8230;</em> to enter connection parameters for remote FTP or SSH servers. It will take care of where to save <em>.ftpssh_settings</em>.</p>
+
+<p>These are the parameters to be used in <em>.ftpssh_settings</em> or entered using the <em>Remote Connection Settings&#8230;</em> command. All except <em>cli_options</em> and <em>password</em> (FTP only) are mandantory.</p>
+
+<ul>
+<li>protocol: SSH or FTP</li>
+<li>user: Login name on the remote host</li>
+<li>password: Password to login on the remote host (FTP only)</li>
+<li>host: Name or IP of the remote host</li>
+<li>path: Relative or absolute path of your project on the remote host  </li>
+<li>cli_options: Command line options/arguments for /usr/bin/ftp or /usr/bin/scp (optional)</li>
+</ul>
+
+<p><strong>Note:</strong> Because SSH does not support passwords on the command line it only works if you set up passwordless authentication like <em>Public key authentication</em>. See the SSH manual for how to do this.
+<strong>Note 2:</strong> Passwords for FTP are saved in clear text. To secure it a little bit the <em>.ftpssh_settings</em> file will be set to file mode 0600 (read/write only by the owner).</p>
+
+<h2 id="formatof.ftpssh_settingsfile">Format of .ftpssh_settings file</h2>
+
+<h3 id="example.ftpssh_settingsforaftpconnection:">Example .ftpssh_settings for a FTP connection:</h3>
+
+<code>
+protocol = ftp
+user = username
+password = password
+host = myserver.com
+path = root/of/remote_project
+cli_options =
+</code>
+
+<h3 id="example.ftpssh_settingsforasshconnection:">Example .ftpssh_settings for a SSH connection:</h3>
+
+<code>
+protocol = ssh
+user = username
+password = 
+host = myserver.com
+path = root/of/remote_project
+cli_options = -C
+</code>
+
+<p>(Compression of data transfer enabled by <em>cli_options = -C</em>)</p>
+
+<h2 id="usingftpsshcommands">Using FTP/SSH commands</h2>
+
+<p>The FTP/SSH bundle commands works on the current window (open file) only. It's not possible to reload or save all files in a TextMate Project at once.</p>
+
+<ul>
+<li><p><strong>Reload Remote File</strong> <br />
+To get the latest revision of a remote file use this command. This will overwrite the local file. <br />
+Shortcut: alt-R</p></li>
+<li><p><strong>Upload File</strong> <br />
+Save local changes to the remote host (and the local file). This will overwrite the remote file. <br />
+Shortcut: alt-S</p></li>
+<li><p><strong>Remote Connection Settings...</strong> <br />
+Edit and save remote connection parameters for remote FTP or SSH servers.</p></li>
+<li><strong>Help</strong> <br />
+Show Help.</li>
+</ul>
+
+<p>There is no fancy response sign (spinning wheel, progress bar) during data transfer. After success or failure of the commands you get a message as tool tip or - if installed - via <a href="http://growl.info">Growlnotify</a>.</p>
+
+<h2 id="todo">TODO</h2>
+
+<ul>
+<li>Not all error output from /usr/bin/ftp and /usr/bin/scp is catched right now</li>
+<li>Reload all files of a TextMate Project at once</li>
+<li>Upload all changed files of a TextMate Project at once</li>
+<li>Show diffs between local and remote files</li>
+</ul>
+
+<p>Suggestions welcome! Write to bernhard@fuersten.info or at <a href="http://fuerstnet.de/ftp-ssh-bundle-textmate">http://fuerstnet.de/ftp-ssh-bundle-textmate</a>.</p>

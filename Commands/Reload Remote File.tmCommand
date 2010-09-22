@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env php 
+&lt;?php
+// Initialize variables and load helper functions
+$require = array_key_exists('TM_BUNDLE_SUPPORT', $_SERVER) ? $_SERVER['TM_BUNDLE_SUPPORT'] : $_ENV['TM_BUNDLE_SUPPORT']; 
+require($require.'/lib/helper_functions.php');
+
+// get remote file
+$TM_FILENAME = array_key_exists('TM_FILENAME', $_SERVER) ? $_SERVER['TM_FILENAME'] : $_ENV['TM_FILENAME'];
+$TM_FILEPATH = array_key_exists('TM_FILEPATH', $_SERVER) ? $_SERVER['TM_FILEPATH'] : $_ENV['TM_FILEPATH'];
+$TM_DIRECTORY = array_key_exists('TM_DIRECTORY', $_SERVER) ? $_SERVER['TM_DIRECTORY'] : $_ENV['TM_DIRECTORY'];
+
+get_file($TM_FILENAME, $TM_FILEPATH, $TM_DIRECTORY, $PROJECT_DIR, $PREFS);
+</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>keyEquivalent</key>
+	<string>~r</string>
+	<key>name</key>
+	<string>Reload Remote File</string>
+	<key>output</key>
+	<string>showAsTooltip</string>
+	<key>uuid</key>
+	<string>CBC00CD8-50DC-480A-964E-9A790AAF048C</string>
+</dict>
+</plist>
