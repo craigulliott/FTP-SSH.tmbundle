@@ -1,0 +1,3 @@
+check out into a folder called FTP:SSH.tmbundle (github doesnt allow this to be the repo name)
+# cd '/Users/<your user name>/Library/Application Support/TextMate/Pristine Copy/Bundles'
+# git://github.com/craigulliott/FTP-SSH.tmbundle.git  FTP\:SSH.tmbundle
