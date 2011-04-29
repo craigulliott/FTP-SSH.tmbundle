@@ -2,8 +2,10 @@
 /**
  * Helper functions for the TextMate bundle "FTP/SSH"
  * Version 2.3, 2008-05-13
+ * Version 2.5, 2011-01-20	Fixed for Snow leopard, buggy nib file, problem of filenames with spaces and uses a pipe for transmission of the plist xml
  *
  * @author Bernhard Fürst
+ * @modifier Alexandre van 't Westende
  */
 
 // start initialisation of variables and connection parameters
@@ -163,19 +165,31 @@ function notify($message, $sticky = false) {
 
 function settings_dialog($PREFS_FILE, $prefs='') {
 	// default settings
-	$default = '<plist version="1.0"><dict><key>protocol</key><string>ftp</string></dict></plist>';
+	$plist = '<plist version="1.0"><dict><key>protocol</key><string>ftp</string></dict></plist>';
 	
 	// Show current remote settings if any
-	if(is_array($prefs)) {
-		$default = '<plist version="1.0"><dict>';
+	if (is_array($prefs)) {
+		$plist = '<plist version="1.0"><dict>';
 		foreach($prefs as $key => $value) {
-			$default .= '<key>'.$key.'</key><string>'.$value.'</string>';
+			$plist .= '<key>'.$key.'</key><string>'.$value.'</string>';
 		}
-		$default .= '</dict></plist>';
+		$plist .= '</dict></plist>';
 	}
 
-	// Show settings dialog
-	$result = shell_exec((array_key_exists('DIALOG', $_SERVER) ? $_SERVER['DIALOG'] : $_ENV['DIALOG'])." -cmp '".$default."' '".(array_key_exists('TM_BUNDLE_SUPPORT', $_SERVER) ? $_SERVER['TM_BUNDLE_SUPPORT'] : $_ENV['TM_BUNDLE_SUPPORT'])."/nibs/FTP_SSH Settings.nib'");
+	// v2.5: 2011-01-20	Fixed for Snow leopard, buggy nib file, problem of filenames with spaces and uses a pipe for transmission of the plist xml
+	// open a 2 way process
+	$process = proc_open('"$DIALOG" -cm "$TM_BUNDLE_SUPPORT/nibs/FTP_SSH Settings.nib"', array(array("pipe", "r"), array("pipe", "w")), $pipes);
+	if (is_resource($process)) {
+	    fwrite($pipes[0], $plist);					// stdin: send the xml plist
+	    fclose($pipes[0]);
+	    $result = stream_get_contents($pipes[1]);	// stdout: read the result
+	    fclose($pipes[1]);
+	    proc_close($process);						// close the process
+	}
+	else {
+		notify("Problem dealing with the .nib file.");
+		return false;
+	}
 
 	// Make array from $result
 	$result = parse_plist($result);
